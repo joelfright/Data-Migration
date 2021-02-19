@@ -24,11 +24,7 @@ public class Starter {
     }
 
     public static void loadData(boolean large) {
-        if (employeeDAO.checkExists()) {
-            employeeDAO.dropTable();
-        }
-
-        employeeDAO.createTable();
+        employeeDAO.truncateTable();
 
         EmployeeDTO.getData(large);
     }

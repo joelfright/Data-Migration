@@ -77,42 +77,10 @@ public class EmployeeDAO {
         }
     }
 
-    public boolean checkExists(){
-        try {
-            Statement statement = connectToDatabase().createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT IF(EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'employees'), 1,0);");
-            resultSet.next();
-            return resultSet.getInt(1) == 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public void createTable(){
-        try {
-            Statement statement = connectToDatabase().createStatement();
-            statement.execute("CREATE TABLE employees (" +
-                    "emp_id INT PRIMARY KEY," +
-                    "name_prefix VARCHAR(6)," +
-                    "first_name VARCHAR(15)," +
-                    "middle_initial CHAR(1)," +
-                    "last_name VARCHAR(20)," +
-                    "gender CHAR(1)," +
-                    "email VARCHAR(50)," +
-                    "date_of_birth DATETIME," +
-                    "date_of_join DATETIME," +
-                    "salary INT)"
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void dropTable(){
-        try {
-            Statement statement = connectToDatabase().createStatement();
-            statement.execute("DROP TABLE employees");
+    public void truncateTable(){
+        try (Connection connection = connectToDatabase()){
+            Statement statement = connection.createStatement();
+            statement.execute("TRUNCATE TABLE employees");
         } catch (SQLException e) {
             e.printStackTrace();
         }
