@@ -3,10 +3,12 @@ package com.sparta.joel;
 import com.sparta.joel.main.Starter;
 import com.sparta.joel.printers.Printer;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
 public class PerformanceTests {
 
     @Test
+    @DisplayName("Sequential | Small CSV")
     public void timeTakenSequential(){
         long start = System.nanoTime();
         Starter.loadData(false);
@@ -18,6 +20,7 @@ public class PerformanceTests {
     }
 
     @Test
+    @DisplayName("Threaded | 100 Threads | Small CSV")
     public void timeTakenThreaded(){
         long start = System.nanoTime();
         Starter.loadData(false);
@@ -29,6 +32,7 @@ public class PerformanceTests {
     }
 
     @Test
+    @DisplayName("Threaded | 100 Threads | Large CSV")
     public void timeTakenThreadedLarge(){
         long start = System.nanoTime();
         Starter.loadData(true);
@@ -40,6 +44,7 @@ public class PerformanceTests {
     }
 
     @Test
+    @DisplayName("Threaded | 10 Threads | Large CSV")
     public void timeTakenThreaded10Threads(){
         long start = System.nanoTime();
         Starter.loadData(true);
@@ -51,6 +56,7 @@ public class PerformanceTests {
     }
 
     @Test
+    @DisplayName("Threaded | 50 Threads | Large CSV")
     public void timeTakenThreaded50Threads(){
         long start = System.nanoTime();
         Starter.loadData(true);

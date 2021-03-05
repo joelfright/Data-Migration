@@ -5,7 +5,7 @@ import com.sparta.joel.main.Starter;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class Tests {
+public class CheckDuplicateTests {
 
     @Test
     public void checkDuplicatesSmall(){
