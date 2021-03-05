@@ -1,7 +1,7 @@
 package com.sparta.joel.employees.threaded;
 
-import com.sparta.joel.employees.Employee;
 import com.sparta.joel.employees.EmployeeDTO;
+import com.sparta.joel.employees.CSVReader;
 
 import java.sql.*;
 import java.util.*;
@@ -11,7 +11,7 @@ public class EmployeeDAOThread implements Runnable{
 
     @Override
     public void run() {
-        insertSpecificEmployees(EmployeeDTO.employeeQueue);
+        insertSpecificEmployees(CSVReader.employeeQueue);
     }
 
     private final String URL = "jdbc:mysql://localhost:3306/mylocal?serverTimezone=GMT";
@@ -26,13 +26,13 @@ public class EmployeeDAOThread implements Runnable{
         return connection;
     }
 
-    public void insertSpecificEmployees(LinkedBlockingQueue<Employee> employeeQueue){
+    public void insertSpecificEmployees(LinkedBlockingQueue<EmployeeDTO> employeeQueue){
         String insertEmployee = "INSERT INTO employees VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Iterator it = employeeQueue.iterator();
         try (Connection connection = connectToDatabase();
              PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee)) {
             while(it.hasNext()) {
-                Employee employee = employeeQueue.poll();
+                EmployeeDTO employee = employeeQueue.poll();
                 if(employee == null){
                     break;
                 }

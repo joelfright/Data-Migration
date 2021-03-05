@@ -1,7 +1,7 @@
 package com.sparta.joel.main;
 
 import com.sparta.joel.employees.sequential.EmployeeDAO;
-import com.sparta.joel.employees.EmployeeDTO;
+import com.sparta.joel.employees.CSVReader;
 import com.sparta.joel.employees.threaded.Threads;
 
 public class Starter {
@@ -10,8 +10,8 @@ public class Starter {
 
     public static void start() {
 
-        loadData(true);
-        startInsert(true, 500);
+        loadData(false);
+        startInsert(true, 100);
 
     }
 
@@ -19,14 +19,14 @@ public class Starter {
         if (threaded) {
             Threads.createThreads(numOfThreads);
         } else {
-            employeeDAO.insertAllEmployees(EmployeeDTO.employeesList);
+            employeeDAO.insertAllEmployees(CSVReader.employeesList);
         }
     }
 
     public static void loadData(boolean large) {
         employeeDAO.truncateTable();
 
-        EmployeeDTO.getData(large);
+        CSVReader.getData(large);
     }
 
 }

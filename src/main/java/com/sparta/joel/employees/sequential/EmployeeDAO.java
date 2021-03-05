@@ -1,6 +1,6 @@
 package com.sparta.joel.employees.sequential;
 
-import com.sparta.joel.employees.Employee;
+import com.sparta.joel.employees.EmployeeDTO;
 import com.sparta.joel.printers.Printer;
 
 import java.sql.*;
@@ -51,13 +51,13 @@ public class EmployeeDAO {
         }
     }
 
-    public void insertAllEmployees(HashMap<Integer, Employee> employeesList){
+    public void insertAllEmployees(HashMap<Integer, EmployeeDTO> employeesList){
         String insertEmployee = "INSERT INTO employees VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Iterator it = employeesList.entrySet().iterator();
         while(it.hasNext()) {
             try {
                 Map.Entry employee = (Map.Entry) it.next();
-                Employee values = (Employee) employee.getValue();
+                EmployeeDTO values = (EmployeeDTO) employee.getValue();
                 PreparedStatement preparedStatement = connectToDatabase().prepareStatement(insertEmployee);
                 preparedStatement.setInt(1, (int) employee.getKey());
                 preparedStatement.setString(2, values.getPrefix());
